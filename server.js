@@ -45,6 +45,18 @@ app.post('/addwords', (req, res) => {
     return res.status(201).json({ [word]: def });
 })
 
+app.put('/words/:word', (req, res) => {
+    const word = req.params.word;
+
+    if (!word in WORD) {
+        return res.status(404).end('Not found');
+    }
+    WORD[word] = def;
+    res.json({ [word]: def });
+    
+
+    res.send(word);
+})
 
 app.listen(3000, function () {
     console.log("Listening on port 3000");
