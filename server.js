@@ -42,7 +42,7 @@ app.post('/addwords', (req, res) => {
     }
     WORD[word] = def;
     res.send("added words");
-    return res.status(201).json({ [word]: def });
+    res.status(201).json({ [word]: def });
 })
 
 app.put('/words/:word', (req, res) => {
@@ -56,6 +56,16 @@ app.put('/words/:word', (req, res) => {
     
 
     res.send(word);
+})
+
+app.delete('/words/:word', (req, res) => {
+    const word = req.params.word;
+    const def = req.params.def;
+    if (!word in WORD) {
+        return res.status(404).end('Not found');
+    }
+    delete WORD[word];
+    res.status(202).json({ [word]: def });
 })
 
 app.listen(3000, function () {
